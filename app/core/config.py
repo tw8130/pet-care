@@ -27,7 +27,7 @@ class Settings(BaseSettings):
     # Database configuration
     # For development, we'll use SQLite (a simple file-based database)
     # In production, you'd use PostgreSQL or MySQL
-    database_url: str = "sqlite:///./petcare.db"
+    database_url: str = "sqlite:///./fallback.db"  #fallback value
 
     # API configuration
     api_prefix: str = "/api/v1"
