@@ -39,7 +39,7 @@ class PetUpdate(BaseModel):
     name: Optional[str] = Field(None, min_length=1, max_length=100)
     pet_type: Optional[PetType] = None
     breed: Optional[str] = None
-    age: Optional[int] = Field(None, ge=0, le=50)
+    age: Optional[int] = Field(None, ge=0, le=70)
     date_of_birth: Optional[date] = None
     weight_kg: Optional[float] = Field(None, gt=0)
     is_vaccinated: Optional[bool] = None
