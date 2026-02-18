@@ -8,6 +8,9 @@ touching your actual code.
 """
 
 from pydantic_settings import BaseSettings,SettingsConfigDict
+#pydantic_settings is a library that reads settings from two places:
+  #Your .env file (a private file you never share)
+  #Default values you define in code
 from functools import lru_cache
 
 
@@ -31,7 +34,9 @@ class Settings(BaseSettings):
 
     # API configuration
     api_prefix: str = "/api/v1"
-    debug: bool = True
+    # In production, you'd set this to False so you don't accidentally expose sensitive info in logs.
+    debug: bool = True  # controls whether extra information (like SQL queries) gets printed to the terminal
+
 
     class Config:
         # This tells Pydantic to load values from a .env file
