@@ -6,10 +6,13 @@ These define what data the API accepts when creating/updating owners,
 and what data it returns when you fetch owners.
 """
 
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, EmailStr, Field, ConfigDict
 from datetime import datetime
-from typing import Optional, List
+from typing import Optional, List, TYPE_CHECKING
 
+# Forward reference for PetResponse
+if TYPE_CHECKING:
+    from app.schemas.pet import PetResponse
 
 class OwnerBase(BaseModel):
     """
@@ -60,9 +63,11 @@ class OwnerResponse(OwnerBase):
     created_at: datetime
     updated_at: datetime
 
-    class Config:
+    # NEW PYDANTIC V2 WAY ✅
+    model_config = ConfigDict(from_attributes=True) # from_attributes=True means to  convert it to a Pydantic schema (for your API response)
+    #class Config:
         # This allows Pydantic to work with SQLModel objects
-        from_attributes = True
+        #from_attributes = True
 
 
 class OwnerWithPets(OwnerResponse):
@@ -73,3 +78,7 @@ class OwnerWithPets(OwnerResponse):
     in one response. This schema does that.
     """
     pets: List["PetResponse"] = []  # Forward reference, defined in schemas/pet.py
+
+ # This allows the forward reference to work at runtime
+from app.schemas.pet import PetResponse
+OwnerWithPets.model_rebuild()

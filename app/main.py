@@ -9,14 +9,22 @@ This file creates the FastAPI application and connects all the routers.
 from fastapi import FastAPI
 from contextlib import asynccontextmanager  #helps manage startup/shutdown events
 
-from app.core.config import get_settings  #your settings binder
+
 from app.database import create_db_and_tables  #the function that sets up your database
 from app.routers import owners, pets   #your two routers
-
+from app.core.config import get_settings
 settings = get_settings()
 
 
 @asynccontextmanager
+## Why This Parameter Is Needed
+
+#FastAPI's lifespan context manager expects to receive the app instance as a parameter, even if you don't use it inside the function.
+
+#Think of it like this:
+#```
+#FastAPI: "Hey lifespan function, here's the app object in case you need it!"
+#lifespan: "Thanks! I'll accept it even if I don't use it."
 async def lifespan(app: FastAPI):
     """
     Lifespan event handler.

@@ -7,9 +7,13 @@ SQLModel will use this to create the actual database table.
 """
 
 from sqlmodel import SQLModel, Field, Relationship
-from typing import Optional, List
+from typing import Optional, List, TYPE_CHECKING
 from datetime import datetime,timezone
-from app.models.pet import Pet
+#from app.models.pet import Pet
+
+# Only import Pet for type checking, not at runtime
+if TYPE_CHECKING:
+    from app.models.pet import Pet
 
 class Owner(SQLModel, table=True):
     """

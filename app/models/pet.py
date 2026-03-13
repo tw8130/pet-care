@@ -6,10 +6,14 @@ This defines the structure of pet records in the database.
 """
 
 from sqlmodel import SQLModel, Field, Relationship
-from typing import Optional
+from typing import Optional, TYPE_CHECKING
 from datetime import datetime, date, timezone
 from enum import Enum
-from app.models.owner import Owner
+#from app.models.owner import Owner
+
+# Only import Owner for type checking
+if TYPE_CHECKING:
+    from app.models.owner import Owner
 
 class PetType(str, Enum):
     """

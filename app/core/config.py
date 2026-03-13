@@ -38,11 +38,11 @@ class Settings(BaseSettings):
     debug: bool = True  # controls whether extra information (like SQL queries) gets printed to the terminal
 
 
-    class Config:
+   # class Config:
         # This tells Pydantic to load values from a .env file
         # env_file = ".env"
         # Pydantic V2 configuration
-        model_config = SettingsConfigDict(env_file=".env")
+    model_config = SettingsConfigDict(env_file=".env")
 
 
 @lru_cache()# allows you to quickly add a cache to your functions.
